@@ -1,0 +1,82 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 30
+
+    # while the following controller names can be a custome name 
+    # it should be consistent with the "type" of the controller
+    
+    # read the motor encoder positions (provided by the hardware interface) 
+    # and publish them to the /joint_states topic for robot state publisher 
+    # to generate the wheel transforms.
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # receives input to change the velocity of the wheels and thus
+    # allowing rotation and position
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
+
+    # Controller for executing  trajectories on a group of joints.
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    
+    # same as above but ths time for the gripper
+    gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+## here are the parameters of each controller ##
+
+diff_drive_controller:
+  ros__parameters:
+    publish_rate: 50.0
+    base_frame_id: base_link
+    left_wheel_names: ["DRIVING_WHEEL_LEFT","FREE_WHEEL_LEFT"]
+    right_wheel_names: ["DRIVING_WHEEL_RIGHT","FREE_WHEEL_RIGHT"]
+    wheel_separation: 0.25
+    wheel_radius: 0.1
+    cmd_vel_timeout: 0.5
+    use_stamped_vel: false
+    enable_odom_tf: true
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - turn_ARM
+      - SERVO_UPPER_
+      - SERVO_LOWER_
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+    
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: true
+    open_loop_control: true
+
+      # constraints:
+      # no constraints yet
+
+gripper_controller:
+  ros__parameters:
+    joints:
+      - GRIPPER_LEFT_1
+      - GRIPPER_RIGHT_1
+      - GRIPPER_LEFT_2
+      - GRIPPER_RIGHT_2
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: true
+    open_loop_control: true
+
+      # constraints:
+      # no constraints yet
+      

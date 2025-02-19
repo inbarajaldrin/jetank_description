@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>jetank_bringup</name>
+  <name>jetank_description</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="ai_team_user@todo.todo">ai_team_user</maintainer>

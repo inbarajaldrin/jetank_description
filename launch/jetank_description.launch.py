@@ -12,6 +12,11 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
 
+    # get this package's location in share directory
+    jetank_package = get_package_share_directory('jetank_description')
+    
+    # here we just declare and define a variable that will be evaluated at runtime
+    # to see whether we use the simulation's clock or unix clock
     use_sim_time = LaunchConfiguration('use_sim_time')
     use_sim_time_arg = DeclareLaunchArgument(
         name='use_sim_time',
@@ -19,13 +24,10 @@ def generate_launch_description():
         description='[ARG] tells the robot_state_publisher to use the simulation time or just unix timestamp'
     )
 
-    jetank_package = get_package_share_directory('jetank_description')
-
+    # gather the main xacro file's location in order to feed it to the 
+    # Xacro program
     main_xacro_file = os.path.join(
-        get_package_share_directory('jetank_description'),'urdf','jetank_main.xacro'
-    )
-    controllers_launch_file = os.path.join(
-       jetank_package,'launch','jetank_controllers.launch.py' 
+        jetank_package,'urdf','jetank_main.xacro'
     )
 
     if os.path.exists(main_xacro_file):
@@ -34,6 +36,7 @@ def generate_launch_description():
         print(f'failed to open {main_xacro_file}')
         exit()
 
+    
     return LaunchDescription([
         use_sim_time_arg,
         Node(
@@ -45,9 +48,6 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time
             }],
         ),   
-        IncludeLaunchDescription(
-            launch_description=PythonLaunchDescriptionSource(controllers_launch_file)
-        )
     ])
         
 

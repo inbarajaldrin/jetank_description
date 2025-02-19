@@ -18,7 +18,7 @@
 	-->
 	<ros2_control name="jetank_controller" type="system">
 		<hardware>
-			<plugin>gz_ros2_control/GazeboSystem</plugin>
+			<plugin>gz_ros2_control/GazeboSimSystem</plugin>
 		</hardware>
 
 		<joint name="turn_ARM">
@@ -111,10 +111,6 @@
 			<parameters>
 				$(find jetank_description)/config/jetank_controllers.yaml
 			</parameters>
-			<ros>
-                <remapping>/control_manager/robot_description:=/robot_description</remapping>
-			</ros>
 		</plugin>
 	</gazebo>
-    
 </robot>

@@ -3,6 +3,10 @@
 
 
     <!-- ================= PROPERTIES ================== -->
+
+    <!-- constants -->
+    <xacro:property name="PI" value="3.1415" />
+    <xacro:property name="scale" value="0.001 0.001 0.001" />
     
     <!-- meshes -->
     <xacro:property name="base_link_mesh"               value="file://$(find jetank_description)/meshes/base_link.stl" /> 
@@ -28,14 +32,15 @@
     <xacro:property name="BEARING_mesh"                 value="file://$(find jetank_description)/meshes/BEARING.stl" />
 
     <!-- materials -->
+    <!-- format: [red green blue alpha] -->
     <xacro:property name="base_link_material"               value="0.25 0.25 0.25 1" /> 
     <xacro:property name="DRIVER_WHEEL_L_material"          value="0.5 0.5 0.4 1" /> 
     <xacro:property name="DRIVER_WHEEL_R_material"          value="0.5 0.5 0.4 1" /> 
     <xacro:property name="FREE_WHEEL_L_material"            value="0.5 0.5 0.4 1" /> 
     <xacro:property name="FREE_WHEEL_R_material"            value="0.5 0.5 0.4 1" /> 
-    <xacro:property name="ARM_UPPER_material"               value="0.0 0.0 0.0 1" /> 
-    <xacro:property name="ARM_MIDDLE_material"              value="0.0 0.0 0.0 1" /> 
-    <xacro:property name="ARM_LOWER_material"               value="0.0 0.0 0.0 1" /> 
+    <xacro:property name="ARM_UPPER_material"               value="0.41 0.45 0.39 1" /> 
+    <xacro:property name="ARM_MIDDLE_material"              value="0.41 0.45 0.39 1" /> 
+    <xacro:property name="ARM_LOWER_material"               value="0.41 0.45 0.39 1" /> 
     <xacro:property name="ANTENNA_R_material"               value="0.2 0.2 0.2 1" /> 
     <xacro:property name="ANTENNA_L_material"               value="0.2 0.2 0.2 1" /> 
     <xacro:property name="GRIPPER_BASE_material"            value="0.65 0.65 0.62 1" /> 
@@ -46,36 +51,107 @@
     <xacro:property name="SERVO_UPPER_material"             value="0.58 0.78 0.78 1" /> 
     <xacro:property name="SERVO_LOWER_material"             value="0.58 0.78 0.78 1" />
     <xacro:property name="CATERPILLAR_TRACER_L_material"    value="0 0 0 0" /> 
-    <xacro:property name="CAMERA_material"                  value="0.78 0.58 0.78 1" /> 
-    <xacro:property name="CAMERA_HOLDER_material"           value="0.0 0.0 0.0 1" /> 
+    <xacro:property name="CAMERA_material"                  value="0.84 0.74 0.60 1" /> 
+    <xacro:property name="CAMERA_HOLDER_material"           value="0.0 0.5 0.5 1" /> 
     <xacro:property name="BEARING_material"                 value="0.67 0.74 0.67 1" /> 
 
     <!-- mass -->
     <xacro:property name="base_link_mass"               value="0.7639308708503839" /> 
-    <xacro:property name="DRIVER_WHEEL_L_mass"          value="0.10496982138298995" /> 
+    <xacro:property name="DRIVER_WHEEL_L_mass"          value="0.1049698213829899" /> 
     <xacro:property name="DRIVER_WHEEL_R_mass"          value="0.1049698213829899" /> 
-    <xacro:property name="FREE_WHEEL_L_mass"            value="0.11488889485414525" /> 
-    <xacro:property name="FREE_WHEEL_R_mass"            value="0.11488889485415185" /> 
-    <xacro:property name="ARM_UPPER_mass"               value="0.03565761396104929" /> 
-    <xacro:property name="ARM_MIDDLE_mass"              value="0.06186397464920469" /> 
+    <xacro:property name="FREE_WHEEL_L_mass"            value="0.1148888948541452" /> 
+    <xacro:property name="FREE_WHEEL_R_mass"            value="0.1148888948541518" /> 
+    <xacro:property name="ARM_UPPER_mass"               value="0.0356576139610492" /> 
+    <xacro:property name="ARM_MIDDLE_mass"              value="0.0618639746492046" /> 
     <xacro:property name="ARM_LOWER_mass"               value="0.1036438493797283" /> 
-    <xacro:property name="ANTENNA_R_mass"               value="0.17125903401505282" /> 
+    <xacro:property name="ANTENNA_R_mass"               value="0.1712590340150528" /> 
     <xacro:property name="ANTENNA_L_mass"               value="0.1712590340150529" /> 
     <xacro:property name="GRIPPER_BASE_mass"            value="0.0366550366587098" /> 
-    <xacro:property name="GRIPPER_L1_mass"              value="0.0062442558314246485" /> 
-    <xacro:property name="GRIPPER_L2_mass"              value="0.02146027585992414" />
-    <xacro:property name="GRIPPER_R1_mass"              value="0.006244255831424673" />
-    <xacro:property name="GRIPPER_R2_mass"              value="0.021460275859939086" />
-    <xacro:property name="SERVO_UPPER_mass"             value="0.20982161326472018" /> 
-    <xacro:property name="SERVO_LOWER_mass"             value="0.20982161326471963" />
+    <xacro:property name="GRIPPER_L1_mass"              value="0.0062442558314246" /> 
+    <xacro:property name="GRIPPER_L2_mass"              value="0.0214602758599241" />
+    <xacro:property name="GRIPPER_R1_mass"              value="0.0062442558314246" />
+    <xacro:property name="GRIPPER_R2_mass"              value="0.0214602758599390" />
+    <xacro:property name="SERVO_UPPER_mass"             value="0.2098216132647201" /> 
+    <xacro:property name="SERVO_LOWER_mass"             value="0.2098216132647196" />
     <xacro:property name="CATERPILLAR_TRACER_L_mass"    value="0" /> 
-    <xacro:property name="CAMERA_mass"                  value="0.019177097425958016" /> 
-    <xacro:property name="CAMERA_HOLDER_mass"           value="0.04320508566431304" /> 
-    <xacro:property name="BEARING_mass"                 value="0.05589211207057759" /> 
+    <xacro:property name="CAMERA_mass"                  value="0.0191770974259580" /> 
+    <xacro:property name="CAMERA_HOLDER_mass"           value="0.0432050856643130" /> 
+    <xacro:property name="BEARING_mass"                 value="0.0558921120705775" /> 
 
-    <!-- constants -->
-    <xacro:property name="PI" value="3.1415" />
-    <xacro:property name="scale" value="0.001 0.001 0.001" />
+    <!-- link_type -->
+    <xacro:property name="base_link_link_type"          value="box"/>
+    <xacro:property name="ARM_UPPER_link_type"          value="box"/>
+    <xacro:property name="ARM_MIDDLE_link_type"         value="box"/>
+    <xacro:property name="ARM_LOWER_link_type"          value="cylinder"/>
+    <xacro:property name="DRIVER_WHEEL_L_link_type"     value="cylinder"/>
+    <xacro:property name="DRIVER_WHEEL_R_link_type"     value="cylinder"/>
+    <xacro:property name="FREE_WHEEL_L_link_type"       value="cylinder"/>
+    <xacro:property name="FREE_WHEEL_R_link_type"       value="cylinder"/>
+    <xacro:property name="CAMERA_link_type"             value="box"/>
+    <xacro:property name="CAMERA_HOLDER_link_type"      value="cylinder"/>
+    <xacro:property name="BEARING_link_type"            value="cylinder"/>
+    <xacro:property name="ANTENNA_L_link_type"          value="cylinder"/>
+    <xacro:property name="ANTENNA_R_link_type"          value="cylinder"/>
+    <xacro:property name="SERVO_UPPER_link_type"        value="box"/>
+    <xacro:property name="SERVO_LOWER_link_type"        value="box"/>
+    <xacro:property name="GRIPPER_BASE_link_type"       value="box"/>
+    <xacro:property name="GRIPPER_L1_link_type"         value="mesh"/>
+    <xacro:property name="GRIPPER_L2_link_type"         value="mesh"/>
+    <xacro:property name="GRIPPER_R1_link_type"         value="mesh"/>
+    <xacro:property name="GRIPPER_R2_link_type"         value="mesh"/>
+
+    <!-- link_dim [x , y, z] -->
+    <!-- 
+        Describes the dimensions of the shape of the link. 
+    -->
+    <!-- if link_type == cylinder => ${LINK_NAME}_dim[2] will be ignored -->
+    <!-- if link_type == cylinder => ${LINK_NAME}_dim[0] == length and ${LINK_NAME}_dim[1] == radius -->
+    <xacro:property name="base_link_dim"          value="${[0.2,  0.1,  0.065]}"/>
+    <xacro:property name="ARM_UPPER_dim"          value="${[0.05,  0.005,  0.05]}"/>
+    <xacro:property name="ARM_MIDDLE_dim"         value="${[0.115,  0.005,  0.05]}"/>
+    <xacro:property name="ARM_LOWER_dim"          value="${[0.06,  0.02,  0.0]}"/>
+    <xacro:property name="DRIVER_WHEEL_L_dim"     value="${[0.025,  0.025,  0.0]}"/>
+    <xacro:property name="DRIVER_WHEEL_R_dim"     value="${[0.025,  0.025,  0.0]}"/>
+    <xacro:property name="FREE_WHEEL_L_dim"       value="${[0.025,  0.025,  0.0]}"/>
+    <xacro:property name="FREE_WHEEL_R_dim"       value="${[0.025,  0.025,  0.0]}"/>
+    <xacro:property name="CAMERA_dim"             value="${[0.01,  0.01,  0.01]}"/>
+    <xacro:property name="CAMERA_HOLDER_dim"      value="${[0.05,  0.02,  0]}"/>
+    <xacro:property name="BEARING_dim"            value="${[0.02,  0.025,  0.0]}"/>
+    <xacro:property name="ANTENNA_L_dim"          value="${[0.15,  0.01,  0.0]}"/>
+    <xacro:property name="ANTENNA_R_dim"          value="${[0.15,  0.01,  0.0]}"/>
+    <xacro:property name="SERVO_UPPER_dim"        value="${[0.04,  0.04,  0.015]}"/>
+    <xacro:property name="SERVO_LOWER_dim"        value="${[0.04,  0.04,  0.015]}"/>
+    <xacro:property name="GRIPPER_BASE_dim"       value="${[0.04,  0.045,  0.005]}"/>
+    <xacro:property name="GRIPPER_L1_dim"         value="${[0.0,  0.0,  0.0]}"/>
+    <xacro:property name="GRIPPER_L2_dim"         value="${[0.0,  0.0,  0.0]}"/>
+    <xacro:property name="GRIPPER_R1_dim"         value="${[0.0,  0.0,  0.0]}"/>
+    <xacro:property name="GRIPPER_R2_dim"         value="${[0.0,  0.0,  0.0]}"/>
+
+    <!-- collision_xyz_rpy [x , y, z,r ,p ,y] -->
+    <!-- 
+        Describes the position and orientation of the collision shape relative to the link.
+    -->
+    <xacro:property name="base_link_collision_xyz_rpy"      value="${[0, 0, 0.04, 0, 0, 0]}" /> 
+    <xacro:property name="ARM_UPPER_collision_xyz_rpy"      value="${[-0.02, 0.001, -0.02, 0, 0, -PI/8]}" /> 
+    <xacro:property name="ARM_MIDDLE_collision_xyz_rpy"     value="${[-0.04, 0.04, 0, 0, 0, -PI/4]}" /> 
+    <xacro:property name="ARM_LOWER_collision_xyz_rpy"      value="${[-0.005, 0, 0.03, 0, 0, 0]}" /> 
+    <xacro:property name="DRIVER_WHEEL_L_collision_xyz_rpy" value="${[0, 0, -0.02, 0, 0, 0]}" /> 
+    <xacro:property name="DRIVER_WHEEL_R_collision_xyz_rpy" value="${[0, 0, -0.02, 0, 0, 0]}" /> 
+    <xacro:property name="FREE_WHEEL_L_collision_xyz_rpy"   value="${[0, 0, -0.02, 0, 0, 0]}" /> 
+    <xacro:property name="FREE_WHEEL_R_collision_xyz_rpy"   value="${[0, 0, -0.02, 0, 0, 0]}" /> 
+    <xacro:property name="CAMERA_collision_xyz_rpy"         value="${[0, 0, 0, -PI, 0, 0]}" /> 
+    <xacro:property name="CAMERA_HOLDER_collision_xyz_rpy"  value="${[-0.01, 0, 0, 5*PI/6, -PI/2, -5*PI/6]}" /> 
+    <xacro:property name="BEARING_collision_xyz_rpy"        value="${[0, 0, 0, -PI, 0, 0]}" /> 
+    <xacro:property name="ANTENNA_L_collision_xyz_rpy"      value="${[0,  0.08, -0.01, PI/2, 0, 0]}" /> 
+    <xacro:property name="ANTENNA_R_collision_xyz_rpy"      value="${[0, -0.08, -0.01, PI/2, 0, 0]}" /> 
+    <xacro:property name="SERVO_UPPER_collision_xyz_rpy"    value="${[-0.0125, 0, -0.0095, 0, -PI/8, 0]}" /> 
+    <xacro:property name="SERVO_LOWER_collision_xyz_rpy"    value="${[-0.015, -0.004, 0.02, -PI/2, 0, PI]}" /> 
+    <xacro:property name="GRIPPER_BASE_collision_xyz_rpy"   value="${[0.0175, 0, -0.0095, -PI/8, 0, -PI/2]}" /> 
+    <xacro:property name="GRIPPER_L1_collision_xyz_rpy"     value="${[0, 0, 0, 0, 0, 0]}" /> 
+    <xacro:property name="GRIPPER_L2_collision_xyz_rpy"     value="${[0, 0, 0, 0, 0, 0]}" /> 
+    <xacro:property name="GRIPPER_R1_collision_xyz_rpy"     value="${[0, 0, 0, 0, 0, 0]}" /> 
+    <xacro:property name="GRIPPER_R2_collision_xyz_rpy"     value="${[0, 0, 0, 0, 0, 0]}" />  
+
     
     <!-- ================= INCLUDES ================== -->
 

@@ -102,6 +102,43 @@
 
 	</ros2_control>
 
+	<!-- All other sensors such as Camera's, LiDAR's, IMU , etc... -->
+	
+	<!--Dummy link -->
+	<link name="CAMERA_OPTICAL"></link>
+	
+	<!-- Joint from camera to Dummy link -->
+	<joint name="camera_optical_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="CAMERA" />
+		<child link="CAMERA_OPTICAL" />
+	</joint>
+
+	<gazebo reference="CAMERA">
+		<sensor name="camera" type="camera">
+			<pose> 0 0 0 0 0 0 </pose>
+			<visualize>true</visualize>
+			<update_rate>10</update_rate>
+			<topic>camera/image_raw</topic>
+			<gz_fram_id>CAMERA_OPTICAL</gz_fram_id>
+			<camera>
+				<camera_info_topic>camera/camera_info</camera_info_topic>
+				<horizontal_fov>1.089</horizontal_fov>
+				<image>
+					<!-- (RED) 8 bits + (BLUE) 8 bits  + (GREEN) 8 bits -->
+					<format>R8G8B8</format>
+					<width>640</width>
+					<height>480</height>
+				</image>
+				<clip>
+					<near>0.05</near>
+					<far>8.0</far>
+				</clip>
+			</camera>
+		</sensor>
+	</gazebo>
+
+
 	<!-- 
 		required for Gazebo such that ros2_control can work. 
 		We need to load a config file to tell what controllers to load 
@@ -112,5 +149,6 @@
 				$(find jetank_description)/config/jetank_controllers.yaml
 			</parameters>
 		</plugin>
+
 	</gazebo>
 </robot>

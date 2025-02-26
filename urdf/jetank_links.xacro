@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetank">
 
-        <xacro:macro name="links" params="name mesh material mass *origin *inertial">
+    <xacro:macro name="links" params="name mesh material mass link_type dim_x:=0 dim_y:=0 dim_z:=0 collision_xyz collision_rpy *origin *inertial ">
         <link name="${name}">
             <visual name="${name}_visual">
                 <xacro:insert_block name="origin"/>
@@ -13,10 +13,24 @@
                 </material>
             </visual>
             <collision name="${name}_collision">
-                <xacro:insert_block name="origin"/>
-                <geometry>
-                    <mesh filename="${mesh}" scale="${scale}"/>
-                </geometry>
+                <xacro:if value="${ link_type == 'cylinder' }">
+                    <origin xyz="${collision_xyz}" rpy="${collision_rpy}" />
+                    <geometry>
+                        <cylinder length="${dim_x}" radius="${dim_y}"/>
+                    </geometry>
+                </xacro:if>
+                <xacro:if value="${ link_type == 'box' }">
+                    <origin xyz="${collision_xyz}" rpy="${collision_rpy}" />
+                    <geometry>
+                        <box size="${dim_x} ${dim_y} ${dim_z}"/>
+                    </geometry>
+                </xacro:if>
+                <xacro:if value="${ link_type == 'mesh' }">
+                    <xacro:insert_block name="origin"/>
+                    <geometry>
+                        <mesh filename="${mesh}" scale="${scale}"/>
+                    </geometry>
+                </xacro:if>
             </collision>
             <xacro:insert_block name="inertial" />
         </link>
@@ -26,9 +40,9 @@
 
 
     <!-- base link -->
-    <xacro:links name="base_link" mesh="${base_link_mesh}" material="${base_link_material}" mass="${base_link_mass}" >
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-           <inertial>
+    <xacro:links name="base_link" mesh="${base_link_mesh}" material="${base_link_material}" mass="${base_link_mass}" link_type="${base_link_link_type}" dim_x="${base_link_dim[0]}" dim_y="${base_link_dim[1]}" dim_z="${base_link_dim[2]}" collision_xyz="${base_link_collision_xyz_rpy[0]} ${base_link_collision_xyz_rpy[1]} ${base_link_collision_xyz_rpy[2]}" collision_rpy="${base_link_collision_xyz_rpy[3]} ${base_link_collision_xyz_rpy[4]} ${base_link_collision_xyz_rpy[5]}">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" /> 
+        <inertial>
             <origin xyz="-0.0028864851424563968 0.0003605395998919554 0.03729152724217677"
                 rpy="0.0 0.0 0.0" />
             <mass value="0.7639308708503839" />
@@ -38,8 +52,8 @@
     </xacro:links>
 
     <!-- arm -->
-    <xacro:links name="ARM_UPPER" mesh="${ARM_UPPER_mesh}" material="${ARM_UPPER_material}" mass="${ARM_UPPER_mass}" >
-        <origin xyz="-0.042675603894513275 0.008004289658434232 -0.020301207430691776" rpy="0.22339825954275927 -1.556184340833111 -0.5813072278980501" />
+    <xacro:links name="ARM_UPPER" mesh="${ARM_UPPER_mesh}" material="${ARM_UPPER_material}" mass="${ARM_UPPER_mass}" link_type="${ARM_UPPER_link_type}" dim_x="${ARM_UPPER_dim[0]}" dim_y="${ARM_UPPER_dim[1]}" dim_z="${ARM_UPPER_dim[2]}"  collision_xyz="${ARM_UPPER_collision_xyz_rpy[0]} ${ARM_UPPER_collision_xyz_rpy[1]} ${ARM_UPPER_collision_xyz_rpy[2]}" collision_rpy="${ARM_UPPER_collision_xyz_rpy[3]} ${ARM_UPPER_collision_xyz_rpy[4]} ${ARM_UPPER_collision_xyz_rpy[5]}">
+        <origin xyz="-0.042675603894513275 0.008004289658434232 -0.020301207430691776" rpy="0.22339825954275927 -1.556184340833111 -0.5813072278980501" /> 
         <inertial>
             <origin xyz="-0.022908278643665785 0.0006057553402017391 -0.01928712656788768"
                 rpy="0.0 -4.220565730941431e-35 -6.162975822039156e-33" />
@@ -49,8 +63,8 @@
                 iyz="4.6051936175620323e-07" ixz="-1.1226347876157484e-06" />
         </inertial>
     </xacro:links>
-    <xacro:links name="ARM_MIDDLE" mesh="${ARM_MIDDLE_mesh}" material="${ARM_MIDDLE_material}" mass="${ARM_MIDDLE_mass}" >
-        <origin xyz="-0.0335092778226662 0.03363301371186834 -0.021602684974064732" rpy="-3.137540926469612 -0.0010856452132872892 -0.7854003629070162" />
+    <xacro:links name="ARM_MIDDLE" mesh="${ARM_MIDDLE_mesh}" material="${ARM_MIDDLE_material}" mass="${ARM_MIDDLE_mass}" link_type="${ARM_MIDDLE_link_type}" dim_x="${ARM_MIDDLE_dim[0]}" dim_y="${ARM_MIDDLE_dim[1]}" dim_z="${ARM_MIDDLE_dim[2]}"  collision_xyz="${ARM_MIDDLE_collision_xyz_rpy[0]} ${ARM_MIDDLE_collision_xyz_rpy[1]} ${ARM_MIDDLE_collision_xyz_rpy[2]}" collision_rpy="${ARM_MIDDLE_collision_xyz_rpy[3]} ${ARM_MIDDLE_collision_xyz_rpy[4]} ${ARM_MIDDLE_collision_xyz_rpy[5]}">
+        <origin xyz="-0.0335092778226662 0.03363301371186834 -0.021602684974064732" rpy="-3.137540926469612 -0.0010856452132872892 -0.7854003629070162" /> 
         <inertial>
             <origin xyz="-0.03358748266767387 0.03358762804395098 -5.157163600578385e-05"
                 rpy="0.0 2.407412430484311e-35 1.2161079430919492e-49" />
@@ -60,8 +74,8 @@
                 ixz="5.2995547323661035e-08" />
         </inertial>
     </xacro:links>
-    <xacro:links name="ARM_LOWER" mesh="${ARM_LOWER_mesh}" material="${ARM_LOWER_material}" mass="${ARM_LOWER_mass}" >
-        <origin xyz="-0.02591983001797696 9.101096039885847e-05 0.0015000976949900147" rpy="-0.00209732879072002 -3.809593605879156e-06 3.137959984463745" />
+    <xacro:links name="ARM_LOWER" mesh="${ARM_LOWER_mesh}" material="${ARM_LOWER_material}" mass="${ARM_LOWER_mass}" link_type="${ARM_LOWER_link_type}" dim_x="${ARM_LOWER_dim[0]}" dim_y="${ARM_LOWER_dim[1]}" dim_z="${ARM_LOWER_dim[2]}"  collision_xyz="${ARM_LOWER_collision_xyz_rpy[0]} ${ARM_LOWER_collision_xyz_rpy[1]} ${ARM_LOWER_collision_xyz_rpy[2]}" collision_rpy="${ARM_LOWER_collision_xyz_rpy[3]} ${ARM_LOWER_collision_xyz_rpy[4]} ${ARM_LOWER_collision_xyz_rpy[5]}">
+        <origin xyz="-0.02591983001797696 9.101096039885847e-05 0.0015000976949900147" rpy="-0.00209732879072002 -3.809593605879156e-06 3.137959984463745" /> 
         <inertial>
             <origin xyz="-0.01064722156754466 -5.485356628246008e-05 0.029442007866704572"
                 rpy="4.814824860968091e-35 -0.0 3.2073176521106348e-49" />
@@ -71,10 +85,10 @@
                 ixz="-2.334825910280157e-06" />
         </inertial>
     </xacro:links>
-    
+
     <!-- wheels -->
-    <xacro:links name="DRIVER_WHEEL_L" mesh="${DRIVER_WHEEL_L_mesh}" material="${DRIVER_WHEEL_L_material}" mass="${DRIVER_WHEEL_L_mass}" >
-        <origin xyz="1.452944835456549e-05 -8.388494253024348e-06 -0.003999967103401225" rpy="0.5236006817835094 -1.566601673837709 2.617991971944676" />
+    <xacro:links name="DRIVER_WHEEL_L" mesh="${DRIVER_WHEEL_L_mesh}" material="${DRIVER_WHEEL_L_material}" mass="${DRIVER_WHEEL_L_mass}" link_type="${DRIVER_WHEEL_L_link_type}" dim_x="${DRIVER_WHEEL_L_dim[0]}" dim_y="${DRIVER_WHEEL_L_dim[1]}" dim_z="${DRIVER_WHEEL_L_dim[2]}"  collision_xyz="${DRIVER_WHEEL_L_collision_xyz_rpy[0]} ${DRIVER_WHEEL_L_collision_xyz_rpy[1]} ${DRIVER_WHEEL_L_collision_xyz_rpy[2]}" collision_rpy="${DRIVER_WHEEL_L_collision_xyz_rpy[3]} ${DRIVER_WHEEL_L_collision_xyz_rpy[4]} ${DRIVER_WHEEL_L_collision_xyz_rpy[5]}">
+        <origin xyz="1.452944835456549e-05 -8.388494253024348e-06 -0.003999967103401225" rpy="0.5236006817835094 -1.566601673837709 2.617991971944676" /> 
         <inertial>
             <origin xyz="6.909868758699923e-05 -5.0523203168468815e-05 -0.019021631303903268"
                 rpy="0.0 1.8570051196622238e-34 0.0" />
@@ -84,8 +98,8 @@
                 iyz="1.5726877697940232e-08" ixz="-7.452984821786984e-09" />
         </inertial>
     </xacro:links>
-    <xacro:links name="DRIVER_WHEEL_R" mesh="${DRIVER_WHEEL_R_mesh}" material="${DRIVER_WHEEL_R_material}" mass="${DRIVER_WHEEL_R_mass}" >
-        <origin xyz="-1.4501981486878535e-05 -8.391092988526694e-06 -0.003999964535501115" rpy="-0.5236006818924672 -1.5666016738377524 0.52360068175411" />
+    <xacro:links name="DRIVER_WHEEL_R" mesh="${DRIVER_WHEEL_R_mesh}" material="${DRIVER_WHEEL_R_material}" mass="${DRIVER_WHEEL_R_mass}" link_type="${DRIVER_WHEEL_R_link_type}" dim_x="${DRIVER_WHEEL_R_dim[0]}" dim_y="${DRIVER_WHEEL_R_dim[1]}" dim_z="${DRIVER_WHEEL_R_dim[2]}"  collision_xyz="${DRIVER_WHEEL_R_collision_xyz_rpy[0]} ${DRIVER_WHEEL_R_collision_xyz_rpy[1]} ${DRIVER_WHEEL_R_collision_xyz_rpy[2]}" collision_rpy="${DRIVER_WHEEL_R_collision_xyz_rpy[3]} ${DRIVER_WHEEL_R_collision_xyz_rpy[4]} ${DRIVER_WHEEL_R_collision_xyz_rpy[5]}">
+        <origin xyz="-1.4501981486878535e-05 -8.391092988526694e-06 -0.003999964535501115" rpy="-0.5236006818924672 -1.5666016738377524 0.52360068175411" /> 
         <inertial>
             <origin xyz="-6.909654809962084e-05 -2.9269046357853768e-05 -0.019021673226760922"
                 rpy="0.0 -6.360951486702456e-35 0.0" />
@@ -95,8 +109,8 @@
                 iyz="-6.925989762745856e-09" ixz="7.453243651668403e-09" />
         </inertial>
     </xacro:links>
-    <xacro:links name="FREE_WHEEL_L" mesh="${FREE_WHEEL_L_mesh}" material="${FREE_WHEEL_L_material}" mass="${FREE_WHEEL_L_mass}" >
-        <origin xyz="5.322111004383068e-05 -3.072566262244614e-05 -0.014649873776578809" rpy="1.5686679065776332 -0.003614548455738382 0.008580194849726693" />
+    <xacro:links name="FREE_WHEEL_L" mesh="${FREE_WHEEL_L_mesh}" material="${FREE_WHEEL_L_material}" mass="${FREE_WHEEL_L_mass}" link_type="${FREE_WHEEL_L_link_type}" dim_x="${FREE_WHEEL_L_dim[0]}" dim_y="${FREE_WHEEL_L_dim[1]}" dim_z="${FREE_WHEEL_L_dim[2]}"  collision_xyz="${FREE_WHEEL_L_collision_xyz_rpy[0]} ${FREE_WHEEL_L_collision_xyz_rpy[1]} ${FREE_WHEEL_L_collision_xyz_rpy[2]}" collision_rpy="${FREE_WHEEL_L_collision_xyz_rpy[3]} ${FREE_WHEEL_L_collision_xyz_rpy[4]} ${FREE_WHEEL_L_collision_xyz_rpy[5]}">
+        <origin xyz="5.322111004383068e-05 -3.072566262244614e-05 -0.014649873776578809" rpy="1.5686679065776332 -0.003614548455738382 0.008580194849726693" /> 
         <inertial>
             <origin xyz="4.913425615981737e-05 -2.8359849328207787e-05 -0.01352728007660148"
                 rpy="0.0 1.8570051196622238e-34 0.0" />
@@ -106,8 +120,8 @@
                 iyz="-8.518904315297003e-10" ixz="1.5048848574955645e-09" />
         </inertial>
     </xacro:links>
-    <xacro:links name="FREE_WHEEL_R" mesh="${FREE_WHEEL_R_mesh}" material="${FREE_WHEEL_R_material}" mass="${FREE_WHEEL_R_mass}" >
-        <origin xyz="3.8144482055946226e-05 2.2017392292781324e-05 0.01049990762224918" rpy="1.5686989841660284 0.003632669359659834 -3.8096197296224606e-06" />
+    <xacro:links name="FREE_WHEEL_R" mesh="${FREE_WHEEL_R_mesh}" material="${FREE_WHEEL_R_material}" mass="${FREE_WHEEL_R_mass}" link_type="${FREE_WHEEL_R_link_type}" dim_x="${FREE_WHEEL_R_dim[0]}" dim_y="${FREE_WHEEL_R_dim[1]}" dim_z="${FREE_WHEEL_R_dim[2]}"  collision_xyz="${FREE_WHEEL_R_collision_xyz_rpy[0]} ${FREE_WHEEL_R_collision_xyz_rpy[1]} ${FREE_WHEEL_R_collision_xyz_rpy[2]}" collision_rpy="${FREE_WHEEL_R_collision_xyz_rpy[3]} ${FREE_WHEEL_R_collision_xyz_rpy[4]} ${FREE_WHEEL_R_collision_xyz_rpy[5]}">
+        <origin xyz="3.8144482055946226e-05 2.2017392292781324e-05 0.01049990762224918" rpy="1.5686989841660284 0.003632669359659834 -3.8096197296224606e-06" /> 
         <inertial>
             <origin xyz="-4.91456850747074e-05 -2.8363712536370045e-05 -0.013527277364732724"
                 rpy="0.0 -6.360951486702456e-35 0.0" />
@@ -119,8 +133,8 @@
     </xacro:links>
 
     <!-- camera -->
-    <xacro:links name="CAMERA" mesh="${CAMERA_mesh}" material="${CAMERA_material}" mass="${CAMERA_mass}" >
-        <origin xyz="-4.481242470433245e-09 -2.2840283131486673e-09 3.780146231591175e-09" rpy="-3.139495324799226 -3.8095938720097817e-06 0.003632669126105752" />
+    <xacro:links name="CAMERA" mesh="${CAMERA_mesh}" material="${CAMERA_material}" mass="${CAMERA_mass}" link_type="${CAMERA_link_type}" dim_x="${CAMERA_dim[0]}" dim_y="${CAMERA_dim[1]}" dim_z="${CAMERA_dim[2]}"  collision_xyz="${CAMERA_collision_xyz_rpy[0]} ${CAMERA_collision_xyz_rpy[1]} ${CAMERA_collision_xyz_rpy[2]}" collision_rpy="${CAMERA_collision_xyz_rpy[3]} ${CAMERA_collision_xyz_rpy[4]} ${CAMERA_collision_xyz_rpy[5]}">
+        <origin xyz="-4.481242470433245e-09 -2.2840283131486673e-09 3.780146231591175e-09" rpy="-3.139495324799226 -3.8095938720097817e-06 0.003632669126105752" /> 
         <inertial>
             <origin xyz="-0.005467113295410968 -4.792118534928669e-06 0.0028147721817248163"
                 rpy="0.0 -0.0 -1.1739041031382518e-47" />
@@ -131,8 +145,8 @@
         </inertial>
     </xacro:links>
 
-    <xacro:links name="CAM_HOLDER" mesh="${CAMERA_HOLDER_mesh}" material="${CAMERA_HOLDER_material}" mass="${CAMERA_HOLDER_mass}" >
-        <origin xyz="-0.033848894481244764 1.262198380391766e-07 -0.00012296228401156072" rpy="2.6179919438508934 -1.5666016740396613 -2.617991943988682" />
+    <xacro:links name="CAM_HOLDER" mesh="${CAMERA_HOLDER_mesh}" material="${CAMERA_HOLDER_material}" mass="${CAMERA_HOLDER_mass}" link_type="${CAMERA_HOLDER_link_type}" dim_x="${CAMERA_HOLDER_dim[0]}" dim_y="${CAMERA_HOLDER_dim[1]}" dim_z="${CAMERA_HOLDER_dim[2]}"  collision_xyz="${CAMERA_HOLDER_collision_xyz_rpy[0]} ${CAMERA_HOLDER_collision_xyz_rpy[1]} ${CAMERA_HOLDER_collision_xyz_rpy[2]}" collision_rpy="${CAMERA_HOLDER_collision_xyz_rpy[3]} ${CAMERA_HOLDER_collision_xyz_rpy[4]} ${CAMERA_HOLDER_collision_xyz_rpy[5]}">
+        <origin xyz="-0.033848894481244764 1.262198380391766e-07 -0.00012296228401156072" rpy="2.6179919438508934 -1.5666016740396613 -2.617991943988682" /> 
         <inertial>
             <origin xyz="-0.022309879542198107 1.7398627940234946e-06 -8.10411995800453e-05"
                 rpy="0.0 -2.0981802744010314e-34 -1.88079096131566e-37" />
@@ -144,8 +158,8 @@
     </xacro:links>
 
     <!-- bearing -->
-    <xacro:links name="BEARING" mesh="${BEARING_mesh}" material="${BEARING_material}" mass="${BEARING_mass}" >
-        <origin xyz="5.430652114668533e-09 -5.599776194038509e-06 0.0026699942169905724" rpy="-3.1394953247999835 -3.809593613640393e-06 0.0036326691260505526" />
+    <xacro:links name="BEARING" mesh="${BEARING_mesh}" material="${BEARING_material}" mass="${BEARING_mass}" link_type="${BEARING_link_type}" dim_x="${BEARING_dim[0]}" dim_y="${BEARING_dim[1]}" dim_z="${BEARING_dim[2]}"  collision_xyz="${BEARING_collision_xyz_rpy[0]} ${BEARING_collision_xyz_rpy[1]} ${BEARING_collision_xyz_rpy[2]}" collision_rpy="${BEARING_collision_xyz_rpy[3]} ${BEARING_collision_xyz_rpy[4]} ${BEARING_collision_xyz_rpy[5]}">
+        <origin xyz="5.430652114668533e-09 -5.599776194038509e-06 0.0026699942169905724" rpy="-3.1394953247999835 -3.809593613640393e-06 0.0036326691260505526" /> 
         <inertial>
             <origin xyz="-1.4377769774753802e-08 5.306325474567775e-06 -0.0025299943110332545"
                 rpy="0.0 -0.0 -8.784755544884209e-38" />
@@ -157,8 +171,8 @@
     </xacro:links>
 
     <!-- antennas -->
-    <xacro:links name="ANTENNA_L" mesh="${ANTENNA_L_mesh}" material="${ANTENNA_L_material}" mass="${ANTENNA_L_mass}" >
-        <origin xyz="0.012558233063349657 -0.006064954690762062 -0.030941931787802295" rpy="0.5236006817820806 -1.566601673837696 2.6179919719464855" />
+    <xacro:links name="ANTENNA_L" mesh="${ANTENNA_L_mesh}" material="${ANTENNA_L_material}" mass="${ANTENNA_L_mass}" link_type="${ANTENNA_L_link_type}" dim_x="${ANTENNA_L_dim[0]}" dim_y="${ANTENNA_L_dim[1]}" dim_z="${ANTENNA_L_dim[2]}"  collision_xyz="${ANTENNA_L_collision_xyz_rpy[0]} ${ANTENNA_L_collision_xyz_rpy[1]} ${ANTENNA_L_collision_xyz_rpy[2]}" collision_rpy="${ANTENNA_L_collision_xyz_rpy[3]} ${ANTENNA_L_collision_xyz_rpy[4]} ${ANTENNA_L_collision_xyz_rpy[5]}">
+        <origin xyz="0.012558233063349657 -0.006064954690762062 -0.030941931787802295" rpy="0.5236006817820806 -1.566601673837696 2.6179919719464855" /> 
         <inertial>
             <origin xyz="0.00010428589158372858 0.05125494812152533 -0.028760898470254075"
                 rpy="0.0 1.8570051196622238e-34 0.0" />
@@ -168,8 +182,8 @@
                 iyz="2.1240148373447467e-05" ixz="2.77100862291307e-08" />
         </inertial>
     </xacro:links>
-    <xacro:links name="ANTENNA_R" mesh="${ANTENNA_R_mesh}" material="${ANTENNA_R_material}" mass="${ANTENNA_R_mass}" >
-        <origin xyz="-0.00011258950982521831 -0.006064999678879916 -0.030987146017140126" rpy="-0.523600702813549 -1.5666016737795367 0.5236007026751052" />
+    <xacro:links name="ANTENNA_R" mesh="${ANTENNA_R_mesh}" material="${ANTENNA_R_material}" mass="${ANTENNA_R_mass}" link_type="${ANTENNA_R_link_type}" dim_x="${ANTENNA_R_dim[0]}" dim_y="${ANTENNA_R_dim[1]}" dim_z="${ANTENNA_R_dim[2]}"  collision_xyz="${ANTENNA_R_collision_xyz_rpy[0]} ${ANTENNA_R_collision_xyz_rpy[1]} ${ANTENNA_R_collision_xyz_rpy[2]}" collision_rpy="${ANTENNA_R_collision_xyz_rpy[3]} ${ANTENNA_R_collision_xyz_rpy[4]} ${ANTENNA_R_collision_xyz_rpy[5]}">
+        <origin xyz="-0.00011258950982521831 -0.006064999678879916 -0.030987146017140126" rpy="-0.523600702813549 -1.5666016737795367 0.5236007026751052" /> 
         <inertial>
             <origin xyz="-0.00010388848222362413 -0.05137513349335263 -0.028545652272082785"
                 rpy="0.0 -6.360951486702456e-35 0.0" />
@@ -181,8 +195,8 @@
     </xacro:links>
 
     <!-- servos -->
-    <xacro:links name="SERVO_UPPER" mesh="${SERVO_UPPER_mesh}" material="${SERVO_UPPER_material}" mass="${SERVO_UPPER_mass}" >
-        <origin xyz="-0.005884888244401978 0.002005539666205546 -0.01282565966177529" rpy="-3.139353401733166 -0.35794030259148174 0.002848163431076057" />
+    <xacro:links name="SERVO_UPPER" mesh="${SERVO_UPPER_mesh}" material="${SERVO_UPPER_material}" mass="${SERVO_UPPER_mass}" link_type="${SERVO_UPPER_link_type}" dim_x="${SERVO_UPPER_dim[0]}" dim_y="${SERVO_UPPER_dim[1]}" dim_z="${SERVO_UPPER_dim[2]}"  collision_xyz="${SERVO_UPPER_collision_xyz_rpy[0]} ${SERVO_UPPER_collision_xyz_rpy[1]} ${SERVO_UPPER_collision_xyz_rpy[2]}" collision_rpy="${SERVO_UPPER_collision_xyz_rpy[3]} ${SERVO_UPPER_collision_xyz_rpy[4]} ${SERVO_UPPER_collision_xyz_rpy[5]}">
+        <origin xyz="-0.005884888244401978 0.002005539666205546 -0.01282565966177529" rpy="-3.139353401733166 -0.35794030259148174 0.002848163431076057" /> 
         <inertial>
             <origin xyz="-0.008710205981769175 -0.0008931796940865167 -0.0032610178523219346"
                 rpy="0.0 -0.0 8.152758619563242e-34" />
@@ -192,8 +206,8 @@
                 iyz="-2.158225678133891e-07" ixz="-6.978918972026999e-06" />
         </inertial>
     </xacro:links>
-    <xacro:links name="SERVO_LOWER" mesh="${SERVO_LOWER_mesh}" material="${SERVO_LOWER_material}" mass="${SERVO_LOWER_mass}" >
-        <origin xyz="-0.017088390888296067 0.009918027624157234 0.01882732151779485" rpy="-1.5728936694252873 0.0036326691260359155 3.1415888439710504" />
+    <xacro:links name="SERVO_LOWER" mesh="${SERVO_LOWER_mesh}" material="${SERVO_LOWER_material}" mass="${SERVO_LOWER_mass}" link_type="${SERVO_LOWER_link_type}" dim_x="${SERVO_LOWER_dim[0]}" dim_y="${SERVO_LOWER_dim[1]}" dim_z="${SERVO_LOWER_dim[2]}"  collision_xyz="${SERVO_LOWER_collision_xyz_rpy[0]} ${SERVO_LOWER_collision_xyz_rpy[1]} ${SERVO_LOWER_collision_xyz_rpy[2]}" collision_rpy="${SERVO_LOWER_collision_xyz_rpy[3]} ${SERVO_LOWER_collision_xyz_rpy[4]} ${SERVO_LOWER_collision_xyz_rpy[5]}">
+        <origin xyz="-0.017088390888296067 0.009918027624157234 0.01882732151779485" rpy="-1.5728936694252873 0.0036326691260359155 3.1415888439710504" /> 
         <inertial>
             <origin xyz="-0.01778076329454675 -3.6698115345306094e-05 0.01751711641612725"
                 rpy="0.0 -0.0 5.473822126268817e-48" />
@@ -205,8 +219,8 @@
     </xacro:links>
 
     <!-- gripper -->
-    <xacro:links name="GRIPPER_BASE" mesh="${GRIPPER_BASE_mesh}" material="${GRIPPER_BASE_material}" mass="${GRIPPER_BASE_mass}" >
-        <origin xyz="0.017997217528542855 4.248560344255803e-05 -0.005469218003321004" rpy="-0.3748566771788548 -0.0020355939143487573 -1.5671286856792996" />
+    <xacro:links name="GRIPPER_BASE" mesh="${GRIPPER_BASE_mesh}" material="${GRIPPER_BASE_material}" mass="${GRIPPER_BASE_mass}" link_type="${GRIPPER_BASE_link_type}" dim_x="${GRIPPER_BASE_dim[0]}" dim_y="${GRIPPER_BASE_dim[1]}" dim_z="${GRIPPER_BASE_dim[2]}"  collision_xyz="${GRIPPER_BASE_collision_xyz_rpy[0]} ${GRIPPER_BASE_collision_xyz_rpy[1]} ${GRIPPER_BASE_collision_xyz_rpy[2]}" collision_rpy="${GRIPPER_BASE_collision_xyz_rpy[3]} ${GRIPPER_BASE_collision_xyz_rpy[4]} ${GRIPPER_BASE_collision_xyz_rpy[5]}">
+        <origin xyz="0.017997217528542855 4.248560344255803e-05 -0.005469218003321004" rpy="-0.3748566771788548 -0.0020355939143487573 -1.5671286856792996" /> 
         <inertial>
             <origin xyz="0.018711205204747332 0.007640083665599069 -0.007388532023619128"
                 rpy="0.0 -3.469446951953614e-18 -1.6155871338926322e-27" />
@@ -216,8 +230,8 @@
                 iyz="3.9753185062321765e-07" ixz="2.272496699844335e-06" />
         </inertial>
     </xacro:links>
-    <xacro:links name="GRIPPER_L1" mesh="${GRIPPER_L1_mesh}" material="${GRIPPER_L1_material}" mass="${GRIPPER_L1_mass}" >
-        <origin xyz="-0.011947302972329262 -2.0470283309416138e-05 -0.010874872369057797" rpy="-0.0022392674104247065 0.3579393353524086 -3.1387444878467536" />
+    <xacro:links name="GRIPPER_L1" mesh="${GRIPPER_L1_mesh}" material="${GRIPPER_L1_material}" mass="${GRIPPER_L1_mass}" link_type="${GRIPPER_L1_link_type}" dim_x="${GRIPPER_L1_dim[0]}" dim_y="${GRIPPER_L1_dim[1]}" dim_z="${GRIPPER_L1_dim[2]}"  collision_xyz="${GRIPPER_L1_collision_xyz_rpy[0]} ${GRIPPER_L1_collision_xyz_rpy[1]} ${GRIPPER_L1_collision_xyz_rpy[2]}" collision_rpy="${GRIPPER_L1_collision_xyz_rpy[3]} ${GRIPPER_L1_collision_xyz_rpy[4]} ${GRIPPER_L1_collision_xyz_rpy[5]}">
+        <origin xyz="-0.011947302972329262 -2.0470283309416138e-05 -0.010874872369057797" rpy="-0.0022392674104247065 0.3579393353524086 -3.1387444878467536" /> 
         <inertial>
             <origin xyz="-0.012998250088038078 -3.0306803820455697e-05 -0.008065030577021126"
                 rpy="0.0 -0.0 0.0" />
@@ -227,8 +241,8 @@
                 iyz="-4.008141477858269e-10" ixz="-2.2755649847891381e-07" />
         </inertial>
     </xacro:links>
-    <xacro:links name="GRIPPER_L2" mesh="${GRIPPER_L2_mesh}" material="${GRIPPER_L2_material}" mass="${GRIPPER_L2_mass}" >
-        <origin xyz="0.003188025644908059 -2.9460874184410457e-05 0.008523209934978624" rpy="0.002239267410431555 0.35793933535233774 -0.0028481657430385345" />
+    <xacro:links name="GRIPPER_L2" mesh="${GRIPPER_L2_mesh}" material="${GRIPPER_L2_material}" mass="${GRIPPER_L2_mass}" link_type="${GRIPPER_L2_link_type}" dim_x="${GRIPPER_L2_dim[0]}" dim_y="${GRIPPER_L2_dim[1]}" dim_z="${GRIPPER_L2_dim[2]}"  collision_xyz="${GRIPPER_L2_collision_xyz_rpy[0]} ${GRIPPER_L2_collision_xyz_rpy[1]} ${GRIPPER_L2_collision_xyz_rpy[2]}" collision_rpy="${GRIPPER_L2_collision_xyz_rpy[3]} ${GRIPPER_L2_collision_xyz_rpy[4]} ${GRIPPER_L2_collision_xyz_rpy[5]}">
+        <origin xyz="0.003188025644908059 -2.9460874184410457e-05 0.008523209934978624" rpy="0.002239267410431555 0.35793933535233774 -0.0028481657430385345" /> 
         <inertial>
             <origin xyz="-0.0012296239530053298 0.0039691186133053915 0.0036766615181430496"
                 rpy="0.0 -0.0 0.0" />
@@ -238,8 +252,8 @@
                 iyz="3.6806864768416604e-07" ixz="1.9653297004488396e-06" />
         </inertial>
     </xacro:links>
-    <xacro:links name="GRIPPER_R1" mesh="${GRIPPER_R1_mesh}" material="${GRIPPER_R1_material}" mass="${GRIPPER_R1_mass}" >
-        <origin xyz="-0.01194722862140111 -2.0523049998069087e-05 -0.010874850394411446" rpy="-0.002239267410441002 0.3579393353523948 -3.1387444878468265" />
+    <xacro:links name="GRIPPER_R1" mesh="${GRIPPER_R1_mesh}" material="${GRIPPER_R1_material}" mass="${GRIPPER_R1_mass}" link_type="${GRIPPER_R1_link_type}" dim_x="${GRIPPER_R1_dim[0]}" dim_y="${GRIPPER_R1_dim[1]}" dim_z="${GRIPPER_R1_dim[2]}"  collision_xyz="${GRIPPER_R1_collision_xyz_rpy[0]} ${GRIPPER_R1_collision_xyz_rpy[1]} ${GRIPPER_R1_collision_xyz_rpy[2]}" collision_rpy="${GRIPPER_R1_collision_xyz_rpy[3]} ${GRIPPER_R1_collision_xyz_rpy[4]} ${GRIPPER_R1_collision_xyz_rpy[5]}">
+        <origin xyz="-0.01194722862140111 -2.0523049998069087e-05 -0.010874850394411446" rpy="-0.002239267410441002 0.3579393353523948 -3.1387444878468265" /> 
         <inertial>
             <origin xyz="-0.012998246756733707 -3.0304779780740975e-05 -0.008065027151216597"
                 rpy="0.0 -0.0 0.0" />
@@ -249,8 +263,8 @@
                 iyz="-4.008141478629069e-10" ixz="-2.2755649847891381e-07" />
         </inertial>
     </xacro:links>
-    <xacro:links name="GRIPPER_R2" mesh="${GRIPPER_R2_mesh}" material="${GRIPPER_R2_material}" mass="${GRIPPER_R2_mass}" >
-        <origin xyz="0.002101980241199648 1.9421618867496714e-05 -0.005619691253464972" rpy="0.0022392674104621166 -0.3579393353523876 0.002848165742967234" />
+    <xacro:links name="GRIPPER_R2" mesh="${GRIPPER_R2_mesh}" material="${GRIPPER_R2_material}" mass="${GRIPPER_R2_mass}" link_type="${GRIPPER_R2_link_type}" dim_x="${GRIPPER_R2_dim[0]}" dim_y="${GRIPPER_R2_dim[1]}" dim_z="${GRIPPER_R2_dim[2]}"  collision_xyz="${GRIPPER_R2_collision_xyz_rpy[0]} ${GRIPPER_R2_collision_xyz_rpy[1]} ${GRIPPER_R2_collision_xyz_rpy[2]}" collision_rpy="${GRIPPER_R2_collision_xyz_rpy[3]} ${GRIPPER_R2_collision_xyz_rpy[4]} ${GRIPPER_R2_collision_xyz_rpy[5]}">
+        <origin xyz="0.002101980241199648 1.9421618867496714e-05 -0.005619691253464972" rpy="0.0022392674104621166 -0.3579393353523876 0.002848165742967234" /> 
         <inertial>
             <origin xyz="-0.0012584873319152834 0.003975470401698931 -0.0036599972005064174"
                 rpy="0.0 -0.0 -6.018531076210082e-35" />

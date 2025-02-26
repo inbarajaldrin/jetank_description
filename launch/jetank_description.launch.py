@@ -2,7 +2,7 @@ import os
 import xacro
 
 from launch import LaunchDescription
-from launch_ros.actions import Node
+from launch_ros.actions import Node , PushROSNamespace
 
 from ament_index_python.packages import get_package_share_directory
 
@@ -47,7 +47,7 @@ def generate_launch_description():
                 'robot_description': jetank_description,
                 'use_sim_time': use_sim_time
             }],
-        ),   
+        ),
     ])
         
 

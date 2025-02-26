@@ -2,9 +2,6 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetank">
     
     <xacro:macro name="joint" params="joint_name parent_name child_name joint_type *origin *axis *limit">
-
-        <xacro:property name="var" value="False"/>
-
         <joint name="${joint_name}" type="${joint_type}">
             <parent link="${parent_name}" />
             <child link="${child_name}" />
@@ -22,123 +19,103 @@
 
     <!-- ================ JOINTS ================ -->
 
-    <xacro:joint joint_name="base_link_rigid_ANTENNA_L_BASE_JOINT" parent_name="base_link" child_name="ANTENNA_L" joint_type="fixed" > 
-        <origin xyz="0.07179583880228464 -0.04420000207379436 0.05764911381971492"
-            rpy="1.5728936555844633 -3.8093179705849477e-06 -3.137959984697281" />
+
+    <xacro:joint joint_name="base_link_rigid_ANTENNA_L_BASE_JOINT" parent_name="base_link" child_name="ANTENNA_L" joint_type="fixed"> 
+        <origin xyz="0.0718 -0.0442 0.0576" rpy="${PI/2} 0 -${PI}" />
+        <axis/>
+        <limit/>
+    </xacro:joint>
+
+    <xacro:joint joint_name="base_link_rigid_ANTENNA_R_BASE_JOINT" parent_name="base_link" child_name="ANTENNA_R" joint_type="fixed">
+        <origin xyz="0.0718 0.0442 0.0576" rpy="-${PI/2} 0 -${PI}" />   
         <axis/>
         <limit/>
     </xacro:joint>
 
     <xacro:joint joint_name="base_link_rigid_BEARING_BASE_JOINT" parent_name="base_link" child_name="BEARING" joint_type="fixed">
-        <origin xyz="-0.04452917997058859 -1.5196239222525777e-09 0.07665000059344261"
-            rpy="3.1394953248003925 3.8093184609959428e-06 0.0036326691263383853" />   
+        <origin xyz="-0.0445 0 0.0767" rpy="${PI} 0 0.0036" />   
         <axis/>
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="turn_ARM" parent_name="BEARING" child_name="ARM_LOWER" joint_type="revolute">
-        <origin xyz="-3.999999486303807e-08 1.68399999926927e-05 -0.008029980000000016"
-            rpy="3.1415926535888836 8.470329472757884e-22 2.3620969572063488e-20" />   
-            <axis xyz="-3.999999999999999e-06 -0.002097 0.9999979999999999" />
-            <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
+        <origin xyz="0 0.0002 -0.0080" rpy="${PI} 0 0" />   
+        <axis xyz="0 -0.0021 1" />
+        <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
     </xacro:joint>
     <xacro:joint joint_name="FREE_WHEEL_LEFT" parent_name="base_link" child_name="FREE_WHEEL_L" joint_type="continuous">
-        <origin xyz="0.05602081595239314 -0.04419999897832626 0.0133491162833511"
-            rpy="1.5728936555844633 -3.8093179705849477e-06 -3.137959984697281" /> 
-            <axis xyz="-0.0036329997661754595 0.002096999999255531 0.9999910000008511" />
+        <origin xyz="0.0560 -0.0442 0.0133" rpy="${PI/2} 0 -${PI}" /> 
+        <axis xyz="-0.0036 0.0021 1" />
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="FREE_WHEEL_RIGHT" parent_name="base_link" child_name="FREE_WHEEL_R" joint_type="continuous">
-        <origin xyz="-0.06247918316236259 0.044199998372174795 0.01334911112288851"
-            rpy="-1.5686989980047508 -3.8093179709724106e-06 -3.1379599846970962" />   
-            <axis xyz="0.003632999766360199 0.002096999999834741 0.9999910000008492" />
+        <origin xyz="-0.0625 0.0442 0.0133" rpy="-${PI/2} 0 -${PI}" />   
+        <axis xyz="0.0036 0.0021 -1" />
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="CAM_HOLDER_rigid_CAMERA_CAMERA_HOLDER" parent_name="CAM_HOLDER" child_name="CAMERA" joint_type="fixed">
-        <origin xyz="-0.033848889999999916 1.2999999999152578e-07 -0.00012295999999945018"
-            rpy="1.5707963267947316 1.6241874574454326e-14 -2.349358402905514e-19" />  
+        <origin xyz="-0.0338 0 -0.0001" rpy="${PI/2} 0 0" />  
         <axis/>
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="ARM_LOWER_rigid_CAMERA_HOLDER_ARM_LOWER" parent_name="ARM_LOWER" child_name="CAM_HOLDER" joint_type="fixed">
-        <origin xyz="-0.02479996000000001 1.7979999999999662e-05 0.03438114"
-            rpy="1.5707963267950638 2.5410988417699412e-21 -1.6242292381727147e-14" /> 
+        <origin xyz="-0.0248 0 0.0344" rpy="${PI/2} 0 0" /> 
         <axis/>
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="GRIPPER_LEFT_1" parent_name="GRIPPER_BASE" child_name="GRIPPER_L1" joint_type="revolute">
-        <origin xyz="0.041940669305476776 0.005111130007857552 -0.014907472498325022"
-            rpy="-5.535091464327934e-10 -0.016916595705107427 3.141592653589793" />
-            <axis xyz="0.350336 0.003237 -0.936618" />
-            <limit lower="-${PI/4}" upper="0.0" effort="1000000" velocity="1000000" />
+        <origin xyz="0.0419 0.0051 -0.0149" rpy="0 -0.0169 ${PI}" />
+        <axis xyz="0.3503 0.0032 -0.9366" />
+        <limit lower="-${PI/4}" upper="0.0" effort="1000000" velocity="1000000" />
     </xacro:joint>
     <xacro:joint joint_name="GRIPPER_LEFT_2" parent_name="GRIPPER_L1" child_name="GRIPPER_L2" joint_type="revolute">
-        <origin xyz="-0.028133550000000014 -8.035999999999932e-05 -0.010416690000000024"
-            rpy="3.141592653589793 -4.4510473808249043e-67 -3.2526065174565133e-19" /> 
-            <axis xyz="-0.350336 0.0032370000000000003 -0.936618" />
-            <limit lower="-${PI/4}" upper="0.0" effort="1000000" velocity="1000000" />
+        <origin xyz="-0.0281 0 -0.0104" rpy="${PI} 0 0" /> 
+        <axis xyz="-0.3503 0.0032 -0.9366" />
+        <limit lower="-${PI/4}" upper="0.0" effort="1000000" velocity="1000000" />
     </xacro:joint>
     <xacro:joint joint_name="SERVO_UPPER_" parent_name="ARM_MIDDLE" child_name="SERVO_UPPER" joint_type="revolute">
-        <origin xyz="-0.06717496000000145 0.06717525000000088 -0.00010314000001945046"
-            rpy="1.5707963267946035 -1.1116756861297127e-16 2.1684043452959522e-19" /> 
-            <axis xyz="-0.0036329999999998286 0.9999909999999781 0.002097000000003716" />
-            <limit lower="-${2*PI/PI}" upper="${PI/PI}" effort="1000000" velocity="1000000" />
+        <origin xyz="-0.0672 0.0672 0" rpy="${PI/2} 0 0" /> 
+        <axis xyz="-0.0036 1 0.0021" />
+        <limit lower="-2" upper="1" effort="1000000" velocity="1000000" />
     </xacro:joint>
     <xacro:joint joint_name="SERVO_LOWER_" parent_name="SERVO_LOWER" child_name="ARM_MIDDLE" joint_type="revolute">
-        <origin xyz="-0.027086840000000004 -3.859000000304036e-05 0.018351689999999997"
-            rpy="4.546362452465827e-13 3.725489130040891e-19 6.153187910945729e-32" /> 
-            <axis xyz="-0.0036329999999999214 -0.002096999999710479 0.9999909999999733" />
-            <limit lower="0" upper="${PI/4}" effort="1000000" velocity="1000000" />
+        <origin xyz="-0.0271 0 0.0184" rpy="0 0 0" /> 
+        <axis xyz="-0.0036 -0.0021 1" />
+        <limit lower="0" upper="${PI/4}" effort="1000000" velocity="1000000" />
     </xacro:joint>
     <xacro:joint joint_name="ARM_LOWER_Rigid_SERVO_LOWER_ARM_LOWER" parent_name="ARM_LOWER" child_name="SERVO_LOWER" joint_type="fixed">
-        <origin xyz="0.013493039999999996 0.020010240000000002 0.06719127999999999"
-            rpy="1.5707963267947316 1.2705494208814507e-21 -2.114091665950777e-19" />  
+        <origin xyz="0.0135 0.0200 0.0672" rpy="${PI/2} 0 0" />  
         <axis/>
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="DRIVING_WHEEL_RIGHT" parent_name="base_link" child_name="DRIVER_WHEEL_R" joint_type="continuous">
-        <origin xyz="0.056020818716250656 0.04419999872667847 0.013349112559074356"
-            rpy="-1.5686989980047508 -3.8093179709724106e-06 -3.1379599846970962" />   
-            <axis xyz="0.003632999766360199 0.002096999999834741 0.9999910000008492" />
+        <origin xyz="0.0560 0.0442 0.0133" rpy="-${PI/2} 0 -${PI}" />   
+        <axis xyz="0.0036 0.0021 -1" />
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="DRIVING_WHEEL_LEFT" parent_name="base_link" child_name="DRIVER_WHEEL_L" joint_type="continuous">
-        <origin xyz="-0.06247918592622011 -0.04419999933282993 0.013349114847165264"
-            rpy="1.5728936555844633 -3.8093179705849477e-06 -3.137959984697281" /> 
-            <axis xyz="-0.0036329997661754595 0.002096999999255531 0.9999910000008511" />
+        <origin xyz="-0.0625 -0.0442 0.0133" rpy="${PI/2} 0 ${PI}" /> 
+        <axis xyz="-0.0036 0.0021 1" />
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="GRIPPER_RIGHT_2" parent_name="GRIPPER_R1" child_name="GRIPPER_R2" joint_type="revolute">
-        <origin xyz="-0.02809851000000002 -8.002999999999983e-05 -0.010510349999999988"
-            rpy="2.168404344970954e-19 5.5511151231257815e-17 -4.336808689941986e-19" />   
-            <axis xyz="0.3503360000000001 0.003237 -0.936618" />
-            <limit lower="-${PI/4}" upper="0" effort="1000000" velocity="1000000" />
+        <origin xyz="-0.0281 0 -0.0105" rpy="0 0 0" />   
+        <axis xyz="0.3503 0.0032 -0.9366" />
+        <limit lower="-${PI/4}" upper="0" effort="1000000" velocity="1000000" />
     </xacro:joint>
     <xacro:joint joint_name="GRIPPER_RIGHT_1" parent_name="GRIPPER_BASE" child_name="GRIPPER_R1" joint_type="revolute">
-        <origin xyz="0.041977348831299825 -0.004888779992154056 -0.014887120054902746"
-            rpy="-5.535091464327934e-10 -0.016916595705107427 3.141592653589793" />
-            <axis xyz="0.350336 0.003237 -0.936618" />
-            <limit lower="0" upper="${PI/4}" effort="1000000" velocity="1000000" />
+        <origin xyz="0.0420 -0.0049 -0.0149" rpy="0 -0.0169 ${PI}" />
+        <axis xyz="0.3503 0.0032 -0.9366" />
+        <limit lower="0" upper="${PI/4}" effort="1000000" velocity="1000000" />
     </xacro:joint>
     <xacro:joint joint_name="ARM_UPPER_rigid_GRIPPER_BASE_ARM_UPPER" parent_name="ARM_UPPER" child_name="GRIPPER_BASE" joint_type="fixed">
-        <origin xyz="-0.04267559999999579 0.008004290000004133 -0.02030120999999836"
-            rpy="-1.5707963273485313 9.366508094533604e-12 -3.124676057884686" />  
+        <origin xyz="-0.0427 0.0080 -0.0203" rpy="-${PI/2} 0 -${PI}" />  
         <axis/>
         <limit/>
     </xacro:joint>
     <xacro:joint joint_name="SERVO_UPPER_rigid_UPPER_ARM_SERVO_UPPER" parent_name="SERVO_UPPER" child_name="ARM_UPPER" joint_type="fixed">
-        <origin xyz="-0.02320699000000083 0.021300730000000528 -0.016614370000000277"
-            rpy="-1.5707963267951013 -5.572799166575498e-17 -1.106970418107717e-16" /> 
+        <origin xyz="-0.0232 0.0213 -0.0166" rpy="-${PI/2} 0 0" /> 
         <axis/>
         <limit/>
     </xacro:joint>
-    <xacro:joint joint_name="base_link_rigid_ANTENNA_R_BASE_JOINT" parent_name="base_link" child_name="ANTENNA_R" joint_type="fixed">
-        <origin xyz="0.07179584156610407 0.044199995652183625 0.05764912009541617"
-            rpy="-1.5686989980047508 -3.8093179709724106e-06 -3.1379599846970962" />   
-        <axis/>
-        <limit/>
-    </xacro:joint>
-
-
-
 
 </robot>

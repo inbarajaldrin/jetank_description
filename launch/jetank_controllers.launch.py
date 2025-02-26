@@ -20,22 +20,37 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster']
+        arguments=[
+            'joint_state_broadcaster',
+            '--switch-timeout', '10'
+            ]
     )
     diff_drive_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['diff_drive_controller','--param-file',jetank_controllers_config]
+        arguments=[
+            'diff_drive_controller',
+            '--param-file',jetank_controllers_config,
+            '--switch-timeout', '10'
+            ]
     )
     arm_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['arm_controller','--param-file',jetank_controllers_config]
+        arguments=[
+            'arm_controller',
+            '--param-file',jetank_controllers_config,
+            '--switch-timeout', '10'
+            ]
      )
     gripper_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['gripper_controller','--param-file',jetank_controllers_config]
+        arguments=[
+            'gripper_controller',
+            '--param-file',jetank_controllers_config,
+            '--switch-timeout', '10'
+            ]
     )
 
     # Start the controller manager

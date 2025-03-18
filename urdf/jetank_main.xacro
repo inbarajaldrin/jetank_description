@@ -159,5 +159,16 @@
     <xacro:include filename="jetank_joints.xacro"  />
     <xacro:include filename="jetank_sensors.xacro"  />
 
+    <!-- ================= INCLUDES ================== -->
+    
+    <!-- World Link -->
+    <link name="world"/>
+
+    <!-- Fixed Joint to Attach base_link to World -->
+    <joint name="joint0_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
 
 </robot>

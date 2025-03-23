@@ -3,7 +3,7 @@ import xacro
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_prefix, get_package_share_directory
 from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
-from launch.actions import RegisterEventHandler
+from launch.actions import RegisterEventHandler, TimerAction
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
@@ -71,7 +71,7 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock]',
+            '/clock@rosgraph_msgs/msg/Clock@gz.msgs.Clock',
             '/camera@sensor_msgs/msg/Image@gz.msgs.Image',
             '/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo'
         ],
@@ -79,13 +79,30 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        # Launch gazebo environment with world
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [PathJoinSubstitution([FindPackageShare('ros_gz_sim'),
-                                       'launch',
-                                       'gz_sim.launch.py'])]),
-            launch_arguments=[('gz_args', [' -r -v 4 ', PathJoinSubstitution([FindPackageShare('jetank_description'), 'worlds', 'ground_plane.world'])])]),
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare('ros_gz_sim'),
+                    'launch',
+                    'gz_sim.launch.py'
+                ])
+            ]),
+            
+            # Option 1: Launch with empty world (default active)
+            launch_arguments=[('gz_args', [' -r -v 4 empty.sdf'])]
+
+            # Option 2: Launch with custom ground_plane.world
+            # Uncomment below and comment out above to switch
+            # launch_arguments=[(
+            #     'gz_args',
+            #     [PathJoinSubstitution([
+            #         FindPackageShare('jetank_description'),
+            #         'worlds',
+            #         'ground_plane.world'
+            #     ])]
+            # )],
+        ),
+
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=gz_spawn_entity,
@@ -119,9 +136,10 @@ def generate_launch_description():
             description='If true, use simulated clock'),
         RegisterEventHandler(
             event_handler=OnProcessExit(
-                target_action=gz_spawn_entity,
+                target_action=load_gripper_controller,
                 on_exit=[bridge],
             )
         ),
+
 
     ])

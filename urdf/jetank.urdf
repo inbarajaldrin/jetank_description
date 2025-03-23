@@ -11,7 +11,7 @@
     <visual name="base_link_visual">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="base_link_material">
         <color rgba="0.25 0.25 0.25 1"/>
@@ -33,7 +33,7 @@
     <visual name="ARM_UPPER_visual">
       <origin rpy="0.22339825954275927 -1.556184340833111 -0.5813072278980501" xyz="-0.042675603894513275 0.008004289658434232 -0.020301207430691776"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/ARM_UPPER.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/ARM_UPPER.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="ARM_UPPER_material">
         <color rgba="0.41 0.45 0.39 1"/>
@@ -55,7 +55,7 @@
     <visual name="ARM_MIDDLE_visual">
       <origin rpy="-3.137540926469612 -0.0010856452132872892 -0.7854003629070162" xyz="-0.0335092778226662 0.03363301371186834 -0.021602684974064732"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/ARM_MIDDLE.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/ARM_MIDDLE.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="ARM_MIDDLE_material">
         <color rgba="0.41 0.45 0.39 1"/>
@@ -77,7 +77,7 @@
     <visual name="ARM_LOWER_visual">
       <origin rpy="-0.00209732879072002 -3.809593605879156e-06 3.137959984463745" xyz="-0.02591983001797696 9.101096039885847e-05 0.0015000976949900147"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/ARM_LOWER.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/ARM_LOWER.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="ARM_LOWER_material">
         <color rgba="0.41 0.45 0.39 1"/>
@@ -99,7 +99,7 @@
     <visual name="DRIVER_WHEEL_L_visual">
       <origin rpy="0.5236006817835094 -1.566601673837709 2.617991971944676" xyz="1.452944835456549e-05 -8.388494253024348e-06 -0.003999967103401225"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/DRIVER_WHEEL_L.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/DRIVER_WHEEL_L.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="DRIVER_WHEEL_L_material">
         <color rgba="0.5 0.5 0.4 1"/>
@@ -121,7 +121,7 @@
     <visual name="DRIVER_WHEEL_R_visual">
       <origin rpy="-0.5236006818924672 -1.5666016738377524 0.52360068175411" xyz="-1.4501981486878535e-05 -8.391092988526694e-06 -0.003999964535501115"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/DRIVER_WHEEL_R.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/DRIVER_WHEEL_R.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="DRIVER_WHEEL_R_material">
         <color rgba="0.5 0.5 0.4 1"/>
@@ -143,7 +143,7 @@
     <visual name="FREE_WHEEL_L_visual">
       <origin rpy="1.5686679065776332 -0.003614548455738382 0.008580194849726693" xyz="5.322111004383068e-05 -3.072566262244614e-05 -0.014649873776578809"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/FREE_WHEEL_L.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/FREE_WHEEL_L.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="FREE_WHEEL_L_material">
         <color rgba="0.5 0.5 0.4 1"/>
@@ -165,7 +165,7 @@
     <visual name="FREE_WHEEL_R_visual">
       <origin rpy="1.5686989841660284 0.003632669359659834 -3.8096197296224606e-06" xyz="3.8144482055946226e-05 2.2017392292781324e-05 0.01049990762224918"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/FREE_WHEEL_R.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/FREE_WHEEL_R.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="FREE_WHEEL_R_material">
         <color rgba="0.5 0.5 0.4 1"/>
@@ -187,7 +187,7 @@
     <visual name="CAMERA_visual">
       <origin rpy="-3.139495324799226 -3.8095938720097817e-06 0.003632669126105752" xyz="-4.481242470433245e-09 -2.2840283131486673e-09 3.780146231591175e-09"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/CAMERA.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/CAMERA.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="CAMERA_material">
         <color rgba="0.84 0.74 0.60 1"/>
@@ -209,7 +209,7 @@
     <visual name="CAM_HOLDER_visual">
       <origin rpy="2.6179919438508934 -1.5666016740396613 -2.617991943988682" xyz="-0.033848894481244764 1.262198380391766e-07 -0.00012296228401156072"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/CAM_HOLDER.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/CAM_HOLDER.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="CAM_HOLDER_material">
         <color rgba="0.0 0.5 0.5 1"/>
@@ -231,7 +231,7 @@
     <visual name="BEARING_visual">
       <origin rpy="-3.1394953247999835 -3.809593613640393e-06 0.0036326691260505526" xyz="5.430652114668533e-09 -5.599776194038509e-06 0.0026699942169905724"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/BEARING.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/BEARING.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="BEARING_material">
         <color rgba="0.67 0.74 0.67 1"/>
@@ -253,7 +253,7 @@
     <visual name="ANTENNA_L_visual">
       <origin rpy="0.5236006817820806 -1.566601673837696 2.6179919719464855" xyz="0.012558233063349657 -0.006064954690762062 -0.030941931787802295"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/ANTENNA_L.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/ANTENNA_L.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="ANTENNA_L_material">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -275,7 +275,7 @@
     <visual name="ANTENNA_R_visual">
       <origin rpy="-0.523600702813549 -1.5666016737795367 0.5236007026751052" xyz="-0.00011258950982521831 -0.006064999678879916 -0.030987146017140126"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/ANTENNA_R.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/ANTENNA_R.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="ANTENNA_R_material">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -297,7 +297,7 @@
     <visual name="SERVO_UPPER_visual">
       <origin rpy="-3.139353401733166 -0.35794030259148174 0.002848163431076057" xyz="-0.005884888244401978 0.002005539666205546 -0.01282565966177529"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/SERVO_UPPER.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/SERVO_UPPER.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="SERVO_UPPER_material">
         <color rgba="0.58 0.78 0.78 1"/>
@@ -319,7 +319,7 @@
     <visual name="SERVO_LOWER_visual">
       <origin rpy="-1.5728936694252873 0.0036326691260359155 3.1415888439710504" xyz="-0.017088390888296067 0.009918027624157234 0.01882732151779485"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/SERVO_LOWER.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/SERVO_LOWER.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="SERVO_LOWER_material">
         <color rgba="0.58 0.78 0.78 1"/>
@@ -341,7 +341,7 @@
     <visual name="GRIPPER_BASE_visual">
       <origin rpy="-0.3748566771788548 -0.0020355939143487573 -1.5671286856792996" xyz="0.017997217528542855 4.248560344255803e-05 -0.005469218003321004"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_BASE.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_BASE.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="GRIPPER_BASE_material">
         <color rgba="0.65 0.65 0.62 1"/>
@@ -363,7 +363,7 @@
     <visual name="GRIPPER_L1_visual">
       <origin rpy="-0.0022392674104247065 0.3579393353524086 -3.1387444878467536" xyz="-0.011947302972329262 -2.0470283309416138e-05 -0.010874872369057797"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_L1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_L1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="GRIPPER_L1_material">
         <color rgba="0.65 0.65 0.62 1"/>
@@ -372,7 +372,7 @@
     <collision name="GRIPPER_L1_collision">
       <origin rpy="-0.0022392674104247065 0.3579393353524086 -3.1387444878467536" xyz="-0.011947302972329262 -2.0470283309416138e-05 -0.010874872369057797"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_L1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_L1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
     <inertial>
@@ -385,7 +385,7 @@
     <visual name="GRIPPER_L2_visual">
       <origin rpy="0.002239267410431555 0.35793933535233774 -0.0028481657430385345" xyz="0.003188025644908059 -2.9460874184410457e-05 0.008523209934978624"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_L2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_L2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="GRIPPER_L2_material">
         <color rgba="0.65 0.65 0.62 1"/>
@@ -394,7 +394,7 @@
     <collision name="GRIPPER_L2_collision">
       <origin rpy="0.002239267410431555 0.35793933535233774 -0.0028481657430385345" xyz="0.003188025644908059 -2.9460874184410457e-05 0.008523209934978624"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_L2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_L2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
     <inertial>
@@ -407,7 +407,7 @@
     <visual name="GRIPPER_R1_visual">
       <origin rpy="-0.002239267410441002 0.3579393353523948 -3.1387444878468265" xyz="-0.01194722862140111 -2.0523049998069087e-05 -0.010874850394411446"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_R1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_R1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="GRIPPER_R1_material">
         <color rgba="0.65 0.65 0.62 1"/>
@@ -416,7 +416,7 @@
     <collision name="GRIPPER_R1_collision">
       <origin rpy="-0.002239267410441002 0.3579393353523948 -3.1387444878468265" xyz="-0.01194722862140111 -2.0523049998069087e-05 -0.010874850394411446"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_R1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_R1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
     <inertial>
@@ -429,7 +429,7 @@
     <visual name="GRIPPER_R2_visual">
       <origin rpy="0.0022392674104621166 -0.3579393353523876 0.002848165742967234" xyz="0.002101980241199648 1.9421618867496714e-05 -0.005619691253464972"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_R2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_R2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="GRIPPER_R2_material">
         <color rgba="0.65 0.65 0.62 1"/>
@@ -438,7 +438,7 @@
     <collision name="GRIPPER_R2_collision">
       <origin rpy="0.0022392674104621166 -0.3579393353523876 0.002848165742967234" xyz="0.002101980241199648 1.9421618867496714e-05 -0.005619691253464972"/>
       <geometry>
-        <mesh filename="file:///root/ros2_ws/install/jetank_description/share/jetank_description/meshes/GRIPPER_R2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="$(find jetank_description)/meshes/GRIPPER_R2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
     <inertial>
@@ -576,7 +576,7 @@
 		and command intefaces. That being either
 		position or velocity
 	-->
-  <ros2_control name="jetank_controller" type="system">
+  <ros2_control name="IgnitionSystem" type="system">
     <hardware>
       <plugin>ign_ros2_control/IgnitionSystem</plugin>
     </hardware>
@@ -692,7 +692,7 @@
   <gazebo>
     <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
       <parameters>
-				/root/ros2_ws/install/jetank_description/share/jetank_description/config/jetank_controllers.yaml
+				$(find jetank_description)/config/jetank_controllers.yaml
 			</parameters>
     </plugin>
   </gazebo>

@@ -7,6 +7,7 @@ from launch.actions import RegisterEventHandler, TimerAction
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
+from launch.substitutions import Command, TextSubstitution
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -66,6 +67,24 @@ def generate_launch_description():
         output='screen'
     )
 
+    gz_sim = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('ros_gz_sim'),
+                'launch',
+                'gz_sim.launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'gz_args': '-r ' + os.path.join(
+                get_package_share_directory('jetank_description'),
+                'worlds',
+                'ground_plane.world'
+            )
+        }.items()
+    )
+
+
     # Bridge for simulation time and camera topic
     bridge = Node(
         package='ros_gz_bridge',
@@ -79,29 +98,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([
-                PathJoinSubstitution([
-                    FindPackageShare('ros_gz_sim'),
-                    'launch',
-                    'gz_sim.launch.py'
-                ])
-            ]),
-            
-            # Option 1: Launch with empty world (default active)
-            launch_arguments=[('gz_args', [' -r -v 4 empty.sdf'])]
 
-            # Option 2: Launch with custom ground_plane.world
-            # Uncomment below and comment out above to switch
-            # launch_arguments=[(
-            #     'gz_args',
-            #     [PathJoinSubstitution([
-            #         FindPackageShare('jetank_description'),
-            #         'worlds',
-            #         'ground_plane.world'
-            #     ])]
-            # )],
-        ),
+        gz_sim,
 
         RegisterEventHandler(
             event_handler=OnProcessExit(
